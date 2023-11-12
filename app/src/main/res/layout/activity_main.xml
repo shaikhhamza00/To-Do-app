@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Toolbar for the menu and search buttons -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#32a84c"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <ImageView
+                android:id="@+id/menuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_menu_24"
+                android:layout_gravity="start"
+                android:paddingEnd="16dp"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_search_24"
+                android:layout_gravity="end"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Curved green background for the top 20% -->
+
+        <!-- White background for the remaining 80% -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:background="@drawable/curved_green_background">
+
+            <!-- H1: Start your Day -->
+            <TextView
+                android:id="@+id/startYourDayTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:text="Start your Day"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Dynamic date on the right side -->
+
+            <!-- Message: Small tasks, big impact... -->
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="163dp"
+                android:layout_marginEnd="37dp"
+                android:layout_toEndOf="@+id/startYourDayTextView"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/startYourDayTextView"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Small tasks, big impact. Seize the day and conquer your to-do list!"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="80"
+            android:background="#FFFFFF" />
+    </LinearLayout>
+</RelativeLayout>
