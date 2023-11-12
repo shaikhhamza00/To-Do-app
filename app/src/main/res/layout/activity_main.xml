@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -43,8 +43,6 @@
         </androidx.appcompat.widget.Toolbar>
 
         <!-- Curved green background for the top 20% -->
-
-        <!-- White background for the remaining 80% -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -65,8 +63,6 @@
                 android:textStyle="bold" />
 
             <!-- Dynamic date on the right side -->
-
-            <!-- Message: Small tasks, big impact... -->
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
@@ -82,22 +78,26 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/startYourDayTextView"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Small tasks, big impact. Seize the day and conquer your to-do list!"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
         </RelativeLayout>
+
+        <!-- White background for the remaining 80% -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="80"
             android:background="#FFFFFF" />
+
+        <!-- FloatingActionButton for adding tasks -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addTaskButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="#32a84c"
+            android:src="@drawable/baseline_add_24"
+            app:tint="@null" />
+
     </LinearLayout>
 </RelativeLayout>
