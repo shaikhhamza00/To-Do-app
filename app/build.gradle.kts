@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.hamza_dev.todoapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.hamza_dev.todoapp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

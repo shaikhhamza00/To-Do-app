@@ -81,14 +81,14 @@
 
         </RelativeLayout>
 
-        <!-- White background for the remaining 80% -->
-        <View
+        <!-- FloatingActionButton for adding tasks -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="80"
-            android:background="#FFFFFF" />
+            android:padding="16dp" />
 
-        <!-- FloatingActionButton for adding tasks -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addTaskButton"
             android:layout_width="wrap_content"
