@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         addTaskButton.setOnClickListener {
             // Show a dialog or navigate to a new screen for adding a new task
             // For simplicity, I'll add a sample task directly
-            taskAdapter.addNewTask("New Task", "Description of the new task")
+            val addTaskFragment = AddTaskFragment()
+            addTaskFragment.show(supportFragmentManager, addTaskFragment.tag)
         }
     }
 }

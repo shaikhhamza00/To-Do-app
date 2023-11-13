@@ -9,10 +9,11 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddTaskFragment : DialogFragment() {
+class AddTaskFragment : BottomSheetDialogFragment() {
 
     private lateinit var titleEditText: EditText
     private lateinit var descriptionEditText: EditText
@@ -24,7 +25,13 @@ class AddTaskFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_task, container, false)
+        return inflater.inflate(R.layout.fragment_add_task, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Find views by ID
         titleEditText = view.findViewById(R.id.titleEditText)
         descriptionEditText = view.findViewById(R.id.descriptionEditText)
         endDateEditText = view.findViewById(R.id.endDateEditText)
@@ -54,12 +61,10 @@ class AddTaskFragment : DialogFragment() {
             // Dismiss the bottom sheet
             dismiss()
         }
-
-        return view
     }
 
     // Function to show the date picker
-    fun showDatePicker() {
+    private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val datePicker = DatePickerDialog(
             requireContext(),
