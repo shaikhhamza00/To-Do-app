@@ -15,11 +15,16 @@ import java.util.*
 
 class AddTaskFragment : BottomSheetDialogFragment() {
 
+    interface OnTaskAddedListener {
+        fun onTaskAdded(title: String, description: String, endDate: String)
+    }
+
     private lateinit var titleEditText: EditText
     private lateinit var descriptionEditText: EditText
     private lateinit var endDateEditText: EditText
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
+    private var onTaskAddedListener: OnTaskAddedListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,9 +53,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             val description = descriptionEditText.text.toString()
             val endDate = endDateEditText.text.toString()
 
-            // TODO: Validate and save the task data
-            // For simplicity, let's just log the data for now
-            println("Title: $title, Description: $description, End Date: $endDate")
+            // Notify the listener (MainActivity) about the new task
+            onTaskAddedListener?.onTaskAdded(title, description, endDate)
 
             // Dismiss the bottom sheet
             dismiss()
@@ -81,5 +85,9 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePicker.show()
+    }
+
+    fun setOnTaskAddedListener(listener: OnTaskAddedListener) {
+        onTaskAddedListener = listener
     }
 }

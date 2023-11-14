@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddTaskFragment.OnTaskAddedListener {
 
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var recyclerView: RecyclerView
@@ -24,11 +24,24 @@ class MainActivity : AppCompatActivity() {
         // Set up the FloatingActionButton click listener
         val addTaskButton: FloatingActionButton = findViewById(R.id.addTaskButton)
         addTaskButton.setOnClickListener {
-            // Show a dialog or navigate to a new screen for adding a new task
-            // For simplicity, I'll add a sample task directly
-            val addTaskFragment = AddTaskFragment()
-            addTaskFragment.show(supportFragmentManager, addTaskFragment.tag)
+            // Show the AddTaskFragment
+            showAddTaskFragment()
         }
     }
-}
 
+    // Function to show the AddTaskFragment
+    private fun showAddTaskFragment() {
+        val addTaskFragment = AddTaskFragment()
+        addTaskFragment.setOnTaskAddedListener(this) // Pass the MainActivity as the listener
+        addTaskFragment.show(supportFragmentManager, addTaskFragment.tag)
+    }
+
+    // Implementation of the OnTaskAddedListener interface
+    override fun onTaskAdded(title: String, description: String, endDate: String) {
+        // Handle the new task addition here
+        // For now, let's add the task to the RecyclerView adapter
+        taskAdapter.addNewTask(title, description)
+
+        // You may also want to update your data source or perform other actions
+    }
+}
