@@ -7,44 +7,67 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskAdapter(private val tasks: MutableList<Task>) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter(
+    private val tasks: MutableList<Task>,
+    private val itemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    // Task data class
-    data class Task(val title: String, val description: String, var isCompleted: Boolean)
-
-    // ViewHolder class
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
-        val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
-        val checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
-        return ViewHolder(view)
+        return TaskViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentTask = tasks[position]
-
-        holder.titleTextView.text = currentTask.title
-        holder.descriptionTextView.text = currentTask.description
-        holder.checkBox.isChecked = currentTask.isCompleted
-
-        // Handle checkbox click
-        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            // Update the completion status of the task
-            currentTask.isCompleted = isChecked
-        }
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        val task = tasks[position]
+        holder.bind(task)
     }
 
     override fun getItemCount(): Int {
         return tasks.size
     }
 
+    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
+        private val checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
+
+        init {
+            // Set click listener for the item view
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val task = tasks[position]
+                    itemClickListener.onItemClick(task)
+                }
+            }
+
+            // Set click listener for the checkbox
+            checkBox.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val task = tasks[position]
+                    itemClickListener.onCheckBoxClick(task, checkBox.isChecked)
+                }
+            }
+        }
+
+        fun bind(task: Task) {
+            titleTextView.text = task.title
+            checkBox.isChecked = task.isCompleted
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(task: Task)
+        fun onCheckBoxClick(task: Task, isChecked: Boolean)
+    }
+
+    // Other methods for adding, updating, or removing tasks
+    // ...
+
     // Function to add a new task with default completion status as false
     fun addNewTask(title: String, description: String) {
-        val newTask = Task(title, description, isCompleted = false)
+        // You may need to provide a default value for isCompleted
+        val newTask = Task(title = title, description = description, dueDate = "Due Date", isCompleted = false)
         addTask(newTask)
     }
 
@@ -54,5 +77,28 @@ class TaskAdapter(private val tasks: MutableList<Task>) : RecyclerView.Adapter<T
         notifyItemInserted(tasks.size - 1)
     }
 
+    // Function to update a task
+    fun updateTask(task: Task) {
+        val position = tasks.indexOfFirst { it.title == task.title }
+        if (position != -1) {
+            tasks[position] = task
+            notifyItemChanged(position)
+        }
+    }
 
+    // Function to remove a task
+    fun removeTask(task: Task) {
+        val position = tasks.indexOfFirst { it.title == task.title }
+        if (position != -1) {
+            tasks.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
+    data class Task(
+        val title: String,
+        val description: String,
+        val dueDate: String,
+        var isCompleted: Boolean
+    )
 }
