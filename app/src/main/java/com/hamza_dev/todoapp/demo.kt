@@ -45,4 +45,44 @@ class demo : AppCompatActivity() {
         }
     }
 
+
+    private fun showAddTaskBottomSheet() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.fragment_add_task, null)
+
+        val titleEditText: EditText = view.findViewById(R.id.titleEditText)
+        val descriptionEditText: EditText = view.findViewById(R.id.descriptionEditText)
+        val addButton: FloatingActionButton = view.findViewById(R.id.saveButton)
+
+        // Set click listener for the addButton
+        addButton.setOnClickListener {
+            val title = titleEditText.text.toString().trim()
+            val description = descriptionEditText.text.toString().trim()
+
+            if (title.isNotEmpty()) {
+                // Replace "Due Date" with your logic to get the due date
+                val dueDate = "Due Date"
+
+                // Add the new task to the list
+                val newTask = TaskAdapter.Task(title, description, dueDate, isCompleted = false)
+                taskAdapter.addTask(newTask)
+
+                // Dismiss the bottom sheet
+                bottomSheetDialog.dismiss()
+            }
+        }
+
+        // Set text change listener for the titleEditText
+        titleEditText.addTextChangedListener {
+            // Enable or disable the addButton based on the titleEditText's content
+            addButton.isEnabled = !it.isNullOrBlank()
+        }
+
+        // Set the content view of the bottom sheet
+        bottomSheetDialog.setContentView(view)
+
+        // Show the bottom sheet
+        bottomSheetDialog.show()
+    }
+
 }
