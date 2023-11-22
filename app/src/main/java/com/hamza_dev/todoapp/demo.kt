@@ -85,4 +85,27 @@ class demo : AppCompatActivity() {
         bottomSheetDialog.show()
     }
 
+
+
+    private fun showTaskDetailsBottomSheet(task: TaskAdapter.Task) {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_task_details, null)
+
+        // Find views in the bottom sheet layout
+        val titleTextView: TextView = view.findViewById(R.id.titleTextView)
+        val descriptionTextView: TextView = view.findViewById(R.id.descriptionTextView)
+        val dueDateTextView: TextView = view.findViewById(R.id.dueDateTextView)
+
+        // Set data to views
+        titleTextView.text = task.title
+        descriptionTextView.text = task.description
+        dueDateTextView.text = "Due by: ${task.dueDate}"
+
+        // Set the content view of the bottom sheet
+        bottomSheetDialog.setContentView(view)
+
+        // Show the bottom sheet
+        bottomSheetDialog.show()
+    }
+
 }
